@@ -1,0 +1,27 @@
+Local co-op. Split-screen that merges into one screen when close together. 
+
+Top-down puzzle platformer. Backstory: Player 1 and Player 2 are new housekeepers for the witch’s castle. 
+
+While cleaning in the lower levels, Player 2 knocked open a book and was turned into a wheel of cheese! 
+
+Now the pair of them have to speak to the witch to ask her to turn him back into a person again. 
+
+But, first, they are going to continue cleaning their way through the levels because they are new hires and want to keep their jobs. 
+
+Players: Player 1 (human) = slow, but strong. Player 2 (cheese) = quick, but weak. Mechanics: Players can move up, down, left, and right. 
+
+There will be an interact button. Lactose gauge = Player 1 is lactose intolerant. This means that he cannot be in close proximity to Player 2 for too long. 
+
+When they are close together, the lactose gauge will start to rise at a steady pace. Once it reaches a full bar, it’s game over. 
+
+The bar will decrease once the characters are no longer in close proximity. Mice gauge = Player 2 is a wheel of cheese that will attract mice when he is away from Player 1. 
+
+Player 1 scares off the mice so when the players are apart, mice will slowly start to surround Player 2 and the mice gauge will increase slowly. 
+
+Once the bar is full, there will be enough mice to carry away Player 2 into the darkness, and Player 1 will have to run to Player 2 before he gets taken. 
+
+If Player 2 gets taken into the darkness, it will be game over. Gameplay: Balancing act between completing tasks together and separately whilst keeping an eye on the lactose and mice gauges. 
+
+—— Padlet -> references Art Style? -> Pixelated? Example Sound design? -> Steps, rolling sound, moving objects, opening chest(s) and gates, stairs, falling, bgm, 
+
+Programming the game, game mechanics? Cutscene(s)? -> beginning of the game, after the first level (conclusion of the prototype) Sprite & characters? (Witch, Person 1, Person 2/Wheel of Cheese) Split screen & merge screen,
