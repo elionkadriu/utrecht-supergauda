@@ -20,4 +20,5 @@ public class GameOver : MonoBehaviour
         Scene current = SceneManager.GetActiveScene();
         SceneManager.LoadScene(current.buildIndex);
     }
+    
 }
