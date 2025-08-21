@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - TrapDoor
+  - Chest
   layers:
   - Default
   - TransparentFX
