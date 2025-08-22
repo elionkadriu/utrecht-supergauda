@@ -5,7 +5,7 @@ public class MouseFollower : MonoBehaviour
 {
     public Transform cheese;              // set by spawner
     public Transform human;               // set by spawner
-    public float speed = 1.2f;            // move speed
+    public float speed = 2.5f;            // move speed
     public float stopRadius = 0.45f;      // cluster distance around cheese
     public float avoidHumanRadius = 2.5f; // flee distance from human
 
