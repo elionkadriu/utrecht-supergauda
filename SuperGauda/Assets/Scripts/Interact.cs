@@ -10,6 +10,7 @@ public class Interact : MonoBehaviour
         if(!other.CompareTag("Player") && !other.CompareTag("Player2")) return;
 
 		other.GetComponent<PlayerInteract>().interactField = this;
+        other.GetComponent<PlayerInteract>().OnInteractFieldEnter.Invoke();
 	}
 
 	private void OnTriggerExit2D(Collider2D other)
@@ -17,5 +18,6 @@ public class Interact : MonoBehaviour
         if(!other.CompareTag("Player") && !other.CompareTag("Player2")) return;
 		
 		other.GetComponent<PlayerInteract>().interactField = null;
+        other.GetComponent<PlayerInteract>().OnInteractFieldExit.Invoke();
 	}
 }
