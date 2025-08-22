@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TrapDoor
   - Chest
+  - Player2
   layers:
   - Default
   - TransparentFX
