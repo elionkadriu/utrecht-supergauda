@@ -2,12 +2,16 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
-    public Transform destination;
-    bool worksForPlayer2 = true;
+    public Transform destination;    
 
-    public Transform GetDestination(bool isPlayer2)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(!worksForPlayer2 && isPlayer2) return null;
-        return destination;
+        if(!other.CompareTag("Player")) return;
+
+        if (destination != null)
+        {
+            other.transform.position = destination.position;
+            Debug.Log("Teleported to: " + destination.position);
+        }
     }
 }
