@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class GaugeController : MonoBehaviour
 {
     [Header("Players")]
-    public Transform player1;            // Human
-    public Transform player2;            // Cheese
+    public Transform p1;                 // Player1_Human
+    public Transform p2;                 // Player2_Cheese
 
     [Header("UI")]
     public Slider lactoseGauge;          // 0..1
@@ -15,43 +15,42 @@ public class GaugeController : MonoBehaviour
     public float closeThreshold = 2.5f;  // lactose rises if distance < this
     public float farThreshold   = 6.0f;  // mice rises if distance > this
 
-    [Header("Rates (per second)")]
-    public float riseRate = 1.0f;        // fill speed while in danger
-    public float fallRate = 1.5f;        // drain speed while safe
+    [Header("Times to fill (seconds)")]
+    public float lactoseFillTime = 40f;  // 40s to lose if too close
+    public float miceFillTime    = 30f;  // 30s to lose if too far
 
-    [Header("Time to fill (seconds)")]
-    public float maxTime = 6f;           // seconds of “bad state” to fill a bar
-
-    float lactoseT;                      // 0..maxTime
-    float miceT;                         // 0..maxTime
+    [Header("Drain speeds (seconds back to empty)")]
+    public float lactoseDrainTime = 28f; // how fast it empties when safe
+    public float miceDrainTime    = 25f;
 
     void Update()
     {
-        if (!player1 || !player2) return;
+        if (!p1 || !p2 || !lactoseGauge || !miceGauge) return;
 
-        float d = Vector2.Distance(player1.position, player2.position);
+        float d = Vector2.Distance(p1.position, p2.position);
 
-        // lactose: close is bad
-        float lDelta = (d < closeThreshold ? riseRate : -fallRate) * Time.deltaTime;
-        // mice: far is bad
-        float mDelta = (d > farThreshold   ? riseRate : -fallRate) * Time.deltaTime;
+        // --- Lactose: close is bad ---
+        bool lactoseActive = (d < closeThreshold);
+        float lDelta = (lactoseActive ? +Time.deltaTime / Mathf.Max(lactoseFillTime, 0.01f)
+                                      : -Time.deltaTime / Mathf.Max(lactoseDrainTime, 0.01f));
+        lactoseGauge.value = Mathf.Clamp01(lactoseGauge.value + lDelta);
 
-        lactoseT = Mathf.Clamp(lactoseT + lDelta, 0f, maxTime);
-        miceT    = Mathf.Clamp(miceT    + mDelta, 0f, maxTime);
+        // --- Mice: far is bad ---
+        bool miceActive = (d > farThreshold);
+        float mDelta = (miceActive ? +Time.deltaTime / Mathf.Max(miceFillTime, 0.01f)
+                                   : -Time.deltaTime / Mathf.Max(miceDrainTime, 0.01f));
+        miceGauge.value = Mathf.Clamp01(miceGauge.value + mDelta);
 
-        if (lactoseGauge) lactoseGauge.value = lactoseT / maxTime;
-        if (miceGauge)    miceGauge.value    = miceT    / maxTime;
-
-        // (Optional) trigger game over when full
-        if (lactoseT >= maxTime) TryGameOver("Lactose overload!");
-        if (miceT    >= maxTime) TryGameOver("Swarmed by mice!");
+        // Game over checks
+        if (lactoseGauge.value >= 1f) TriggerGameOver("Lactose overload!");
+        if (miceGauge.value    >= 1f) TriggerGameOver("Swarmed by mice!");
     }
 
-    void TryGameOver(string reason)
-    {
-        var go = FindObjectOfType<GameOver>(); // only if you added the GameOver script
-        if (go) go.Trigger(reason);
-        else Debug.Log("Game Over: " + reason);
-        enabled = false; // stop updating after game over
-    }
+    void TriggerGameOver(string reason)
+{
+    var ui = FindObjectOfType<GameOverUI>();
+    if (ui) ui.Show(reason);
+    else Debug.Log("GAME OVER: " + reason);
+    enabled = false; // stop updating bars
+}
 }
